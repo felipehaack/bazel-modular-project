@@ -4,6 +4,7 @@
 .*
 # Except for
 !.gitignore
+!.gitattributes
 !.editorconfig
 #Ignore
 target/
