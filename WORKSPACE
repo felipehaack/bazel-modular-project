@@ -1,3 +1,4 @@
+#### Scala Rules ####
 rules_scala_version="69d3c5b5d9b51537231746e93b4383384c9ebcf4" # update this as needed
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
@@ -8,12 +9,14 @@ http_archive(
     url = "https://github.com/bazelbuild/rules_scala/archive/%s.zip" % rules_scala_version,
 )
 
+#### Scala Register Repositories ####
 load("@io_bazel_rules_scala//scala:toolchains.bzl", "scala_register_toolchains")
 scala_register_toolchains()
 
 load("@io_bazel_rules_scala//scala:scala.bzl", "scala_repositories")
 scala_repositories()
 
+#### Scala Protobuf ####
 protobuf_version="66dc42d891a4fc8e9190c524fd67961688a37bbe"
 protobuf_version_sha256="983975ab66113cbaabea4b8ec9f3a73406d89ed74db9ae75c74888e685f956f8"
 

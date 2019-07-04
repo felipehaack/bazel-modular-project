@@ -1,5 +1,6 @@
-# bazel-scala-minimal-example
-This is a minimal example of Hello World running on Bazel 0.23.0
+# bazel-modular-project
+
+This is a project for study purpose based on Bazel 0.23.0 for modular project.
 
 ## How to install Bazel on MAC
 
@@ -19,26 +20,38 @@ $ bazel version
 ```
 
 ## How to build and run
- 
+
 ```$xslt
-$ bazel build //hello-world:MainApp
-$ ./bazel-bin/hello-world/MainApp
+$ export BAZEL_LANG=scala #scala or java (default is scala)
+```
+
+```$xslt
+$ bazel build //hello-world-$BAZEL_LANG:MainApp
+$ bazel run hello-world-$BAZEL_LANG:MainApp
 ```
 
 
-## Check the graph of the hello world
+## Check the graph for each module
 
 ```$xslt
-$ bazel query --nohost_deps  --noimplicit_deps "deps(//hello-world:MainApp)" --output graph
+$ bazel query --nohost_deps  --noimplicit_deps "deps(//hello-world-$BAZEL_LANG:MainApp)" --output graph
 ```
 
 Or copy and paste the following graph
 ```$xslt
 digraph mygraph {
   node [shape=box];
-"//hello-world:MainApp"
-"//hello-world:MainApp" -> "//hello-world:src/main/scala/com/example/MainApp.scala"
-"//hello-world:src/main/scala/com/example/MainApp.scala"
+"//hello-world-scala:MainApp"
+"//hello-world-scala:MainApp" -> "//hello-world-scala:src/main/scala/com/example/scala/MainApp.scala"
+"//hello-world-scala:MainApp" -> "//hello-world-scala:printer"
+"//hello-world-scala:MainApp" -> "//hello-world-scala:services"
+"//hello-world-scala:services"
+"//hello-world-scala:services" -> "//hello-world-scala:src/main/scala/com/example/scala/services/ServiceC.scala\n//hello-world-scala:src/main/scala/com/example/scala/services/ServiceB.scala\n//hello-world-scala:src/main/scala/com/example/scala/services/ServiceA.scala"
+"//hello-world-scala:src/main/scala/com/example/scala/services/ServiceC.scala\n//hello-world-scala:src/main/scala/com/example/scala/services/ServiceB.scala\n//hello-world-scala:src/main/scala/com/example/scala/services/ServiceA.scala"
+"//hello-world-scala:printer"
+"//hello-world-scala:printer" -> "//hello-world-scala:src/main/scala/com/example/scala/helpers/Printer.scala"
+"//hello-world-scala:src/main/scala/com/example/scala/helpers/Printer.scala"
+"//hello-world-scala:src/main/scala/com/example/scala/MainApp.scala"
 }
 ```
 
